@@ -1,6 +1,7 @@
 namespace HilosParaTodos;
 
-public class MyEvents
+public class EventHandler
 {
-    public static Action finalizar;
+    public Action terminar;
+
 }

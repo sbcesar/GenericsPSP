@@ -2,13 +2,14 @@ namespace HilosParaTodos;
 
 public class MiHilo
 {
-    Thread hilo;
+    private Thread hilo;
     private string text;
+    private Wrapper<Action> terminar;
     
-    public MiHilo(string text)
+    public MiHilo(string text, Wrapper<Action> terminar)
     {
         this.text = text;
-        MyEvents.finalizar += () => { Console.WriteLine($"Hilo {text}"); };
+        this.terminar = terminar;
         hilo = new Thread(_process);
     }
 
@@ -20,7 +21,7 @@ public class MiHilo
     void _process()
     {
         for (int i = 0; i < 1000; i++) Console.Write (text);
-        MyEvents.finalizar?.Invoke();
-        Console.WriteLine($"Ha terminado: {text}");
+        terminar.value?.Invoke();
+        Console.WriteLine($"\nHa terminado: {text}");
     }
 }
